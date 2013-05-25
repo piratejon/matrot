@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "example.h"
+#include "matrix.h"
 
 int main ( int arfc, char ** arfv )
 {
