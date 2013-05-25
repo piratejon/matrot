@@ -1,6 +1,12 @@
+#include <stdlib.h>
+#include "matrix.h"
 
-int n_plus_two ( int n )
+SquareMatrix * initialize_square_matrix ( int size )
 {
-  return n + 2;
+  return NULL;
+}
+
+void free_square_matrix ( SquareMatrix * m )
+{
 }
 

@@ -26,3 +26,5 @@ tests/tests_matrix-tests_main.o
 tests/tests_matrix-tests_matrix.o
 tests/tests_matrix.log
 tests/tests_matrix.trs
+*.swp
+config.h.in~
