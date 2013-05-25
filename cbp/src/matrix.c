@@ -1,5 +1,7 @@
+#include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "matrix.h"
 
 SquareMatrix * initialize_square_matrix ( int dimension, size_t size )
@@ -17,10 +19,17 @@ void free_square_matrix ( SquareMatrix * m )
   free(m);
 }
 
-void fill_matrix_random ( SquareMatrix * m, int row, int col, void * addr )
+void fill_matrix_sequential ( SquareMatrix * m, int row, int col, void * addr )
 {
   Int lol;
   lol.lol = col*m->n + row;
+  memcpy(addr, &lol, sizeof(lol));
+}
+
+void fill_matrix_random ( SquareMatrix * m, int row, int col, void * addr )
+{
+  Int lol;
+  lol.lol = rand();
   memcpy(addr, &lol, sizeof(lol));
 }
 

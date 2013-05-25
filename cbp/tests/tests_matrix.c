@@ -25,9 +25,15 @@ void initialize_matrix ( void )
   free_square_matrix ( mat );
 }
 
+void rotate_matrix ( void )
+{
+  ASSERT(1==1, "lolwut");
+}
+
 void do_tests ( void )
 {
   TEST ( sanity_check_zero );
   TEST ( initialize_matrix );
+  TEST ( rotate_matrix );
 }
 
