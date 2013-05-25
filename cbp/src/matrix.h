@@ -10,6 +10,8 @@ typedef struct _tag_SquareMatrix {
 
 SquareMatrix * initialize_square_matrix ( int, size_t );
 void free_square_matrix ( SquareMatrix * );
+void matrix_fill ( SquareMatrix *, void(*)(SquareMatrix *, int, int, void *) );
+void fill_matrix_random ( SquareMatrix *, int, int, void * );
 
 #endif // _MATRIX_H
 

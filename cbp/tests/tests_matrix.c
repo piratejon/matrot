@@ -14,10 +14,16 @@ void initialize_matrix ( void )
 
   SquareMatrix * mat = initialize_square_matrix ( 22, sizeof(Int) );
   ASSERT(mat != NULL, "Wrong value for square matrix pointer after init.");
+  ASSERT(mat->n == 22, "Wrong size for square matrix after init.");
+  ASSERT(mat->a != NULL, "Matrix body NULL.");
+  matrix_fill(mat, fill_matrix_random);
   free_square_matrix ( mat );
 
   mat = initialize_square_matrix ( 19, sizeof(Int) );
   ASSERT(mat != NULL, "Wrong value for square matrix pointer after init.");
+  ASSERT(mat->n == 19, "Wrong size for square matrix after init.");
+  ASSERT(mat->a != NULL, "Matrix body NULL.");
+  matrix_fill(mat, fill_matrix_random);
   free_square_matrix ( mat );
 }
 
