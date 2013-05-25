@@ -57,3 +57,6 @@ void print_matrix ( SquareMatrix * m )
   }
 }
 
+void matrix_rotate ( SquareMatrix * m ) {
+}
+

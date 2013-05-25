@@ -27,7 +27,28 @@ void initialize_matrix ( void )
 
 void rotate_matrix ( void )
 {
-  ASSERT(1==1, "lolwut");
+  int row, col, half_width;
+
+  SquareMatrix * mat = initialize_square_matrix ( 22, sizeof(Int) );
+  matrix_fill(mat, fill_matrix_sequential);
+  print_matrix(mat);
+  matrix_rotate(mat);
+
+  half_width = ceil(mat->n/2.);
+  for ( row = 0; row < half_width; row += 1 ) {
+    for ( col = 0; col < half_width; col += 1 ) {
+    }
+  }
+
+  print_matrix(mat);
+  free_square_matrix ( mat );
+
+  mat = initialize_square_matrix ( 23, sizeof(Int) );
+  matrix_fill(mat, fill_matrix_sequential);
+  print_matrix(mat);
+  matrix_rotate(mat);
+  print_matrix(mat);
+  free_square_matrix ( mat );
 }
 
 void do_tests ( void )
