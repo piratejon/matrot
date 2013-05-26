@@ -9,6 +9,7 @@ SquareMatrix * initialize_square_matrix ( int dimension, size_t size )
   SquareMatrix * out;
   void * lol = malloc((sizeof(*out))+(size*dimension*dimension));
   out = lol;
+  out->s = size;
   out->n = dimension;
   out->a = lol+(sizeof*out);
   return out;
@@ -58,5 +59,17 @@ void print_matrix ( SquareMatrix * m )
 }
 
 void matrix_rotate ( SquareMatrix * m ) {
+}
+
+SquareMatrix * matrix_copy ( SquareMatrix * orig )
+{
+  int row, col;
+  SquareMatrix * cpy;
+
+  cpy = initialize_square_matrix ( orig->n, orig->s );
+
+  memcpy ( cpy->a, orig->a, cpy->s * cpy->n * cpy->n );
+
+  return cpy;
 }
 

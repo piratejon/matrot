@@ -5,6 +5,7 @@
 
 typedef struct _tag_SquareMatrix {
   int n;
+  size_t s;
   void * a;
 } SquareMatrix;
 
@@ -17,6 +18,7 @@ void free_square_matrix ( SquareMatrix * );
 void matrix_fill ( SquareMatrix *, void(*)(SquareMatrix *, int, int, void *) );
 void print_matrix ( SquareMatrix * );
 void matrix_rotate ( SquareMatrix * );
+SquareMatrix * matrix_copy ( SquareMatrix * );
 
 void fill_matrix_random ( SquareMatrix *, int, int, void * );
 void fill_matrix_sequential ( SquareMatrix * m, int row, int col, void * addr );
