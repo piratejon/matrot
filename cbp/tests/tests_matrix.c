@@ -15,7 +15,7 @@ void initialize_matrix ( void )
   ASSERT(mat->n == 22, "Wrong size for square matrix after init.");
   ASSERT(mat->a != NULL, "Matrix body NULL.");
   matrix_fill(mat, fill_matrix_random);
-  print_matrix(mat);
+  // print_matrix(mat);
   free_square_matrix ( mat );
 
   mat = initialize_square_matrix ( 19, sizeof(Int) );
@@ -23,7 +23,7 @@ void initialize_matrix ( void )
   ASSERT(mat->n == 19, "Wrong size for square matrix after init.");
   ASSERT(mat->a != NULL, "Matrix body NULL.");
   matrix_fill(mat, fill_matrix_random);
-  print_matrix(mat);
+  // print_matrix(mat);
   free_square_matrix ( mat );
 }
 
@@ -55,34 +55,58 @@ void rotate_matrix ( void )
   int row, col, half_width;
   SquareMatrix * mat, * rot;
 
-  mat = initialize_square_matrix ( 22, sizeof(Int) );
-  matrix_fill(mat, fill_matrix_sequential);
+  mat = initialize_square_matrix ( 99, sizeof(Int) );
+  matrix_fill(mat, fill_matrix_random);
   rot = matrix_copy(mat);
   matrix_rotate(rot);
 
   ASSERT ( rot->n == mat->n, "Wrong dimensions after copy/rotate." );
 
+  print_matrix(mat);
+  printf("\n");
+  print_matrix(rot);
+
   half_width = ceil(mat->n/2.);
-  for ( row = 0; row < half_width; row += 1 ) {
-    for ( col = 0; col < half_width; col += 1 ) {
-      //ASSERT ( (Int*)((rot->a == (Int*)y, "Wrong rotated value." );
+  for ( col = 0; col < half_width; col += 1 ) {
+    for ( row = 0; row < half_width; row += 1 ) {
+      ASSERT ( ((Int*)MatrixAt(rot, row, col))->lol == ((Int*)MatrixAt(mat, col, mat->n - 1 - row))->lol, "Wrong rotated value." );
+      ASSERT ( ((Int*)MatrixAt(rot, col, rot->n - 1 - row))->lol == ((Int*)MatrixAt(mat, mat->n - 1 - row, mat->n - 1 - col))->lol, "Wrong rotated value." );
+      ASSERT ( ((Int*)MatrixAt(rot, rot->n - 1 - row, rot->n - 1 - col))->lol == ((Int*)MatrixAt(mat, mat->n - 1 - col, row))->lol, "Wrong rotated value." );
+      ASSERT ( ((Int*)MatrixAt(rot, rot->n - 1 - col, row))->lol == ((Int*)MatrixAt(mat, row, col))->lol, "Wrong rotated value." );
     }
   }
 
+  free_square_matrix ( mat );
   free_square_matrix ( rot );
-  print_matrix(mat);
-  free_square_matrix ( mat );
 
-  mat = initialize_square_matrix ( 23, sizeof(Int) );
-  matrix_fill(mat, fill_matrix_sequential);
+  mat = initialize_square_matrix ( 102, sizeof(Int) );
+  matrix_fill(mat, fill_matrix_random);
+  rot = matrix_copy(mat);
+  matrix_rotate(rot);
+
+  ASSERT ( rot->n == mat->n, "Wrong dimensions after copy/rotate." );
+
   print_matrix(mat);
-  matrix_rotate(mat);
-  print_matrix(mat);
+  printf("\n");
+  print_matrix(rot);
+
+  half_width = ceil(mat->n/2.);
+  for ( col = 0; col < half_width; col += 1 ) {
+    for ( row = 0; row < half_width; row += 1 ) {
+      ASSERT ( ((Int*)MatrixAt(rot, row, col))->lol == ((Int*)MatrixAt(mat, col, mat->n - 1 - row))->lol, "Wrong rotated value." );
+      ASSERT ( ((Int*)MatrixAt(rot, col, rot->n - 1 - row))->lol == ((Int*)MatrixAt(mat, mat->n - 1 - row, mat->n - 1 - col))->lol, "Wrong rotated value." );
+      ASSERT ( ((Int*)MatrixAt(rot, rot->n - 1 - row, rot->n - 1 - col))->lol == ((Int*)MatrixAt(mat, mat->n - 1 - col, row))->lol, "Wrong rotated value." );
+      ASSERT ( ((Int*)MatrixAt(rot, rot->n - 1 - col, row))->lol == ((Int*)MatrixAt(mat, row, col))->lol, "Wrong rotated value." );
+    }
+  }
+
   free_square_matrix ( mat );
+  free_square_matrix ( rot );
 }
 
 void do_tests ( void )
 {
+  srand(0);
   TEST ( sanity_check_zero );
   TEST ( initialize_matrix );
   TEST ( copy_matrix );
