@@ -14,8 +14,8 @@ class Matrix():
   def rotate(self):
     s = len(self.a)
     w = math.ceil(s/2)
+    i_max = w - 1 if s & 1 else w
     s = s - 1
-    i_max = w if s & 1 else w-1
     for i in range(i_max):
       for j in range(w):
         tmp = self.a[i][j]
