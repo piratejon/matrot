@@ -3,6 +3,8 @@
 
 #include <sys/types.h>
 
+#define MatrixAt(m, r, c) ( ((m)->a) + (((c)*((m)->n)) + (r)) )
+
 typedef struct _tag_SquareMatrix {
   int n;
   size_t s;

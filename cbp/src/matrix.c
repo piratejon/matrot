@@ -40,9 +40,7 @@ void matrix_fill( SquareMatrix * m, void(*filler)(SquareMatrix *, int, int, void
 
   for ( col = 0; col < m->n; col += 1 ) {
     for ( row = 0; row < m->n; row += 1 ) {
-      Int * lol = m->a;
-      lol += col*m->n + row;
-      (*filler)(m, row, col, lol);
+      (*filler)(m, row, col, MatrixAt(m, row, col));
     }
   }
 }
@@ -52,7 +50,7 @@ void print_matrix ( SquareMatrix * m )
   int row, col;
   for ( col = 0; col < m->n; col += 1 ) {
     for ( row = 0; row < m->n; row += 1 ) {
-      printf("%3d ", (((Int*)(m->a))[col*m->n + row]).lol);
+      printf("%3d ", ((Int*)MatrixAt(m, row, col))->lol);
     }
     printf("\n");
   }
