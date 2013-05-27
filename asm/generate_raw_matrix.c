@@ -6,7 +6,9 @@
 
 int asmrotatematrix(void *, int);
 void asmfillmatrixrandom(void *, int);
+void asmfillmatrixsequential(void *, int);
 void asmfillmatrixfixed(void *, int, int);
+void testvalgrindboundschecking(void *, int);
 
 int main ( int arfc, char ** arfv ) {
   int n, row, col;
@@ -17,19 +19,15 @@ int main ( int arfc, char ** arfv ) {
 
   matrix = malloc((sizeof*matrix)*n*n);
 
-  asmfillmatrixfixed(matrix, n, 0);
-
-  for ( col = 0; col < n; col += 1 ) {
-    for ( row = 0; row < n; row += 1 ) {
-      printf("%02" PRIx64 " ", matrix[ (col*n) + row ]);
-    }
-    printf("\n");
-  }
+  /*
+  printf("matrix memory: %p-%p\n", (void*)matrix, (void*)(matrix+(n*n)));
+  if (0) testvalgrindboundschecking(matrix, n*n);
+  */
 
   srand(time(NULL));
-  asmfillmatrixrandom(matrix, n);
+  asmfillmatrixsequential(matrix, n);
 
-  printf("\nFilled:\n");
+  printf("Filled:\n");
   for ( col = 0; col < n; col += 1 ) {
     for ( row = 0; row < n; row += 1 ) {
       printf("%02" PRIx64 " ", matrix[ (col*n) + row ]);

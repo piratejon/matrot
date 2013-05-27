@@ -9,29 +9,31 @@ extern rand
 global asmrotatematrix
 global asmfillmatrixrandom
 global asmfillmatrixfixed
+global asmfillmatrixsequential
+global testvalgrindboundschecking
 
 section .text
 
 asmrotatematrix: ; parameters are address of a[0][0] (rdi), and dimension (rsi)
-push rbx
 push rdx
 
 mov ecx, esi ; 32-bit mov zero-extends to fill 64-bit reg
-mov ecx, edx
+; mov edx, ecx
 shr ecx, 1
 
-; so now ecx has floor(n/2) and edx has n
-_rowloop: ; in this loop, ecx is the row number r
+; so now ecx has floor(n/2), decrement for zero indexing
+.rowloop: ; in this loop, ecx is the row number r
+dec ecx
 
-; compute a_x in eax and store in r1x
+; compute anchors in eax and store in r1x
 mov eax, esi
 inc eax
 mul ecx
-add eax, edi
+; add eax, edi
 mov r10d, eax ; a0
 
 ; compute n-1-2r factor
-mov eax, edx
+mov eax, esi
 dec eax
 sub eax, ecx
 sub eax, ecx
@@ -40,32 +42,40 @@ push rax
 mov r11d, r10d
 add r11d, eax ; a1
 
-mul edx ; now eax has n*(n-1-2r)
-mov r12d, r11d
-add r12d, eax ; a2
-mov r13d, r10d
-add r13d, eax ; a3
+mul esi ; now eax has n*(n-1-2r)
+mov r8d, r11d
+add r8d, eax ; a2
+mov r9d, r10d
+add r9d, eax ; a3
 
-pop rax ; used 4 bytes of RAM to save 8 bytes of instructions!
+pop rax ; used 8 bytes of RAM to save 8 bytes of instructions!
 ; eax is now n-1-2r again
 push rcx
 mov ecx, eax ; this is the within-row loop
 
-push qword [r10d]
-push qword [r11d]
-push qword [r12d]
-push qword [r13d]
+.colloop:
 
-pop qword [r10d]
-pop qword [r13d]
-pop qword [r12d]
-pop qword [r11d]
+push qword [edi+8*r10d]
+push qword [edi+8*r11d]
+push qword [edi+8*r8d]
+push qword [edi+8*r9d]
 
+pop qword [edi+8*r10d]
+pop qword [edi+8*r9d]
+pop qword [edi+8*r8d]
+pop qword [edi+8*r11d]
+
+inc r10d
+add r11d, esi
+dec r8d
+sub r9d, esi
+
+loop .colloop
 pop rcx
 
-loop _rowloop
+test ecx, ecx
+jnz .rowloop ; because we need zero to count, can't use the loop instruction
 
-pop rbx
 pop rdx
 ret
 
@@ -74,16 +84,16 @@ mov eax, esi
 mul eax
 mov ecx, eax
 
-lol:
+.lol:
 push rcx
 push rdi
 call rand
 cld
 pop rdi
 pop rcx
-and eax, 0x000000ff
+and rax, 0xff
 stosq
-loop lol
+loop .lol
 
 ret
 
@@ -94,6 +104,25 @@ mul eax
 mov ecx, eax
 mov eax, edx
 rep stosq
+ret
 
+asmfillmatrixsequential: ; rdi is the address of a[0][0], rsi is the dimension
+mov eax, esi
+mul eax
+mov ecx, eax
+
+mov rax, 0
+.lol:
+stosq
+inc rax
+loop .lol
+
+ret
+
+testvalgrindboundschecking: ; rdi is an array with rsi elements; try to access the bytes before and after to trigger a valgrind warning
+sub rdi, 8
+mov rax, [rdi+8*rsi+8]
+inc rax ; the former mov seems to get optimized out without this
+mov rax, [rdi]
 ret
 
