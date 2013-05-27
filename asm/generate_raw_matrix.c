@@ -21,7 +21,7 @@ int main ( int arfc, char ** arfv ) {
 
   for ( col = 0; col < n; col += 1 ) {
     for ( row = 0; row < n; row += 1 ) {
-      printf("%2" PRIx64 " ", matrix[ (col*n) + row ]);
+      printf("%02" PRIx64 " ", matrix[ (col*n) + row ]);
     }
     printf("\n");
   }
@@ -32,7 +32,7 @@ int main ( int arfc, char ** arfv ) {
   printf("\nFilled:\n");
   for ( col = 0; col < n; col += 1 ) {
     for ( row = 0; row < n; row += 1 ) {
-      printf("%2" PRIx64 " ", matrix[ (col*n) + row ]);
+      printf("%02" PRIx64 " ", matrix[ (col*n) + row ]);
     }
     printf("\n");
   }
@@ -42,7 +42,7 @@ int main ( int arfc, char ** arfv ) {
 
   for ( col = 0; col < n; col += 1 ) {
     for ( row = 0; row < n; row += 1 ) {
-      printf("%2" PRIx64 " ", matrix[ (col*n) + row ]);
+      printf("%02" PRIx64 " ", matrix[ (col*n) + row ]);
     }
     printf("\n");
   }

@@ -51,15 +51,15 @@ pop rax ; used 4 bytes of RAM to save 8 bytes of instructions!
 push rcx
 mov ecx, eax ; this is the within-row loop
 
-push qword [edi+r10d]
-push qword [edi+r11d]
-push qword [edi+r12d]
-push qword [edi+r13d]
+push qword [r10d]
+push qword [r11d]
+push qword [r12d]
+push qword [r13d]
 
-pop qword [edi+r10d]
-pop qword [edi+r13d]
-pop qword [edi+r12d]
-pop qword [edi+r11d]
+pop qword [r10d]
+pop qword [r13d]
+pop qword [r12d]
+pop qword [r11d]
 
 pop rcx
 
