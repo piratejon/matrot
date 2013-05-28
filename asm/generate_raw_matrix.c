@@ -16,12 +16,13 @@ void crotatematrix(uint64_t * a, int n) {
   uint64_t tmp;
 
   for ( r = n >> 1; r >= 0; r -= 1 ) {
+
     a0 = r*(n+1);
     a1 = (n-1)*(r+1);
     a2 = (n*n) - (r*(n+1)) - 1;
     a3 = (n-r)*(n-1);
 
-    for ( c = 0; c < n - 1 - (2*r); c += 1 ) {
+    for ( c = n - 1 - (2*r); c > 0; c -= 1 ) {
 
       tmp = *(a+a3);
       *(a+a3) = *(a+a2);
