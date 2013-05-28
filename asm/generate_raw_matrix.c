@@ -19,14 +19,17 @@ int main ( int arfc, char ** arfv ) {
 
   matrix = malloc((sizeof*matrix)*n*n);
 
+  if (!matrix) { printf("failed to allocate space for %dx%d elements\n", n, n); return 1; } 
+
   /*
   printf("matrix memory: %p-%p\n", (void*)matrix, (void*)(matrix+(n*n)));
   if (0) testvalgrindboundschecking(matrix, n*n);
   */
 
   srand(time(NULL));
-  asmfillmatrixrandom(matrix, n);
+  asmfillmatrixsequential(matrix, n);
 
+  /*
   printf("Filled:\n");
   for ( col = 0; col < n; col += 1 ) {
     for ( row = 0; row < n; row += 1 ) {
@@ -35,15 +38,18 @@ int main ( int arfc, char ** arfv ) {
     printf("\n");
   }
   printf("\nRotated:\n");
+  */
 
   asmrotatematrix(matrix, n);
 
+  /*
   for ( col = 0; col < n; col += 1 ) {
     for ( row = 0; row < n; row += 1 ) {
       printf("%02" PRIx64 " ", matrix[ (col*n) + row ]);
     }
     printf("\n");
   }
+  */
 
   free ( matrix );
   return 0;
