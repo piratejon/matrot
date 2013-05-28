@@ -54,11 +54,11 @@ mov ecx, eax ; n-1-2r is the colloop counter
 
 .colloop:
 
-mov rax, [rdi+8*r9]
-xchg rax, [rdi+8*r10]
-xchg rax, [rdi+8*r11]
-xchg rax, [rdi+8*r8]
-mov [rdi+8*r9], rax
+mov rax, [rdi+8*r9]   ; a3
+xchg rax, [rdi+8*r10] ; a0
+xchg rax, [rdi+8*r11] ; a2
+xchg rax, [rdi+8*r8]  ; a1
+mov [rdi+8*r9], rax   ; a3
 
 inc r10d
 add r11d, esi
