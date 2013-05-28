@@ -20,7 +20,6 @@ cmp esi, 1
 jle .exit
 
 mov ecx, esi ; 32-bit mov zero-extends to fill 64-bit reg
-; mov edx, ecx
 shr ecx, 1
 
 ; so now ecx has floor(n/2)
@@ -31,7 +30,6 @@ dec ecx ; decrement to make it zero-indexed
 mov eax, esi
 inc eax
 mul ecx
-; add eax, edi
 mov r10d, eax ; a0
 
 ; compute n-1-2r factor
@@ -39,21 +37,20 @@ mov eax, esi
 dec eax
 sub eax, ecx
 sub eax, ecx
-push rax
 
 mov r11d, r10d
 add r11d, eax ; a1
 
+push rax
 mul esi ; now eax has n*(n-1-2r)
 mov r8d, r11d
 add r8d, eax ; a2
 mov r9d, r10d
 add r9d, eax ; a3
-
-pop rax ; used 8 bytes of RAM to save 8 bytes of instructions!
-; eax is now n-1-2r again
+;div esi ; the push rax/pop rax uses less cycles
+pop rax ; eax is now n-1-2r again
 push rcx ; preserve the rowloop counter
-mov ecx, eax ; this is the within-row loop
+mov ecx, eax ; n-1-2r is the colloop counter
 
 .colloop:
 
