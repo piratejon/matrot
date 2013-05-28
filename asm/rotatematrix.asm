@@ -55,15 +55,21 @@ mov ecx, eax ; this is the within-row loop
 
 .colloop:
 
-push qword [edi+8*r10d]
-push qword [edi+8*r11d]
-push qword [edi+8*r8d]
-push qword [edi+8*r9d]
+mov rax, [edi+8*r9d]
+xchg rax, [edi+8*r10d]
+xchg rax, [edi+8*r11d]
+xchg rax, [edi+8*r8d]
+mov [edi+8*r9d], rax
 
-pop qword [edi+8*r10d]
-pop qword [edi+8*r9d]
-pop qword [edi+8*r8d]
-pop qword [edi+8*r11d]
+;push qword [edi+8*r10d]
+;push qword [edi+8*r11d]
+;push qword [edi+8*r8d]
+;push qword [edi+8*r9d]
+;
+;pop qword [edi+8*r10d]
+;pop qword [edi+8*r9d]
+;pop qword [edi+8*r8d]
+;pop qword [edi+8*r11d]
 
 inc r10d
 add r11d, esi
