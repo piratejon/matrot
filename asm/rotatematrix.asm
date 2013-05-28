@@ -16,7 +16,7 @@ section .text
 
 asmrotatematrix: ; parameters are address of a[0][0] (rdi), and dimension (rsi)
 
-cmp rsi, 1
+cmp esi, 1
 jle .exit
 
 mov ecx, esi ; 32-bit mov zero-extends to fill 64-bit reg
@@ -52,7 +52,7 @@ add r9d, eax ; a3
 
 pop rax ; used 8 bytes of RAM to save 8 bytes of instructions!
 ; eax is now n-1-2r again
-push rcx
+push rcx ; preserve the rowloop counter
 mov ecx, eax ; this is the within-row loop
 
 .colloop:
@@ -69,7 +69,7 @@ dec r8d
 sub r9d, esi
 
 loop .colloop
-pop rcx
+pop rcx ; restore the rowloop counter
 
 test ecx, ecx
 jnz .rowloop ; because we need zero to count, can't use the loop instruction
