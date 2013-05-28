@@ -15,7 +15,6 @@ global testvalgrindboundschecking
 section .text
 
 asmrotatematrix: ; parameters are address of a[0][0] (rdi), and dimension (rsi)
-push rdx
 
 cmp rsi, 1
 jle .exit
@@ -76,7 +75,6 @@ test ecx, ecx
 jnz .rowloop ; because we need zero to count, can't use the loop instruction
 
 .exit:
-pop rdx
 ret
 
 asmfillmatrixrandom: ; parametrs are: address of a[0][0] (rdi), dimension (rsi)
@@ -119,7 +117,7 @@ loop .lol
 
 ret
 
-testvalgrindboundschecking: ; rdi is an array with rsi elements; try to access the bytes before and after to trigger a valgrind warning
+testvalgrindboundschecking: ; rdi is an array with rsi elements of size 8; try to access the bytes before and after to trigger a valgrind warning
 sub rdi, 8
 mov rax, [rdi+8*rsi+8]
 inc rax ; the former mov seems to get optimized out without this
