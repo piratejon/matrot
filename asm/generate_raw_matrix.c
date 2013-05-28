@@ -25,7 +25,7 @@ int main ( int arfc, char ** arfv ) {
   */
 
   srand(time(NULL));
-  asmfillmatrixsequential(matrix, n);
+  asmfillmatrixrandom(matrix, n);
 
   printf("Filled:\n");
   for ( col = 0; col < n; col += 1 ) {
