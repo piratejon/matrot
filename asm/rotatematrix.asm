@@ -17,6 +17,9 @@ section .text
 asmrotatematrix: ; parameters are address of a[0][0] (rdi), and dimension (rsi)
 push rdx
 
+cmp rsi, 1
+jle .exit
+
 mov ecx, esi ; 32-bit mov zero-extends to fill 64-bit reg
 ; mov edx, ecx
 shr ecx, 1
@@ -72,6 +75,7 @@ pop rcx
 test ecx, ecx
 jnz .rowloop ; because we need zero to count, can't use the loop instruction
 
+.exit:
 pop rdx
 ret
 
