@@ -21,9 +21,9 @@ mov ecx, esi ; 32-bit mov zero-extends to fill 64-bit reg
 ; mov edx, ecx
 shr ecx, 1
 
-; so now ecx has floor(n/2), decrement for zero indexing
+; so now ecx has floor(n/2)
 .rowloop: ; in this loop, ecx is the row number r
-dec ecx
+dec ecx ; decrement to make it zero-indexed
 
 ; compute anchors in eax and store in r1x
 mov eax, esi
@@ -55,21 +55,11 @@ mov ecx, eax ; this is the within-row loop
 
 .colloop:
 
-mov rax, [edi+8*r9d]
-xchg rax, [edi+8*r10d]
-xchg rax, [edi+8*r11d]
-xchg rax, [edi+8*r8d]
-mov [edi+8*r9d], rax
-
-;push qword [edi+8*r10d]
-;push qword [edi+8*r11d]
-;push qword [edi+8*r8d]
-;push qword [edi+8*r9d]
-;
-;pop qword [edi+8*r10d]
-;pop qword [edi+8*r9d]
-;pop qword [edi+8*r8d]
-;pop qword [edi+8*r11d]
+mov rax, [rdi+8*r9]
+xchg rax, [rdi+8*r10]
+xchg rax, [rdi+8*r11]
+xchg rax, [rdi+8*r8]
+mov [rdi+8*r9], rax
 
 inc r10d
 add r11d, esi
